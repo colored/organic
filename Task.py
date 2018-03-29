@@ -1,8 +1,5 @@
-import datetime
-
-
 class Task:
-    def __init__(self, name, times, per_day, wage=100, from_time_hrs=1, till_time_hrs=23):
+    def __init__(self, name, times, per_day, wage=29, from_time_hrs=1, till_time_hrs=23):
         self.name = name
         self.times = times
         self.per_day = per_day
@@ -15,5 +12,5 @@ class Task:
             self.wage -= 1
 
         else:
-            self.wage = 100
+            self.wage = 29
         return self
