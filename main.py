@@ -35,9 +35,8 @@ def get_prepared_task_list():
         task_list = []
         current_time = datetime.datetime.now()
         for task in storage.keys():
-            if to_datetime_format(storage[task].from_time) < current_time < to_datetime_format(storage[task].till_time):
-                for _ in range(storage[task].wage):
-                    task_list.append(task)
+            for _ in range(storage[task].wage):
+                task_list.append(task)
     return task_list
 
 
