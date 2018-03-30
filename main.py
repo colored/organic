@@ -1,6 +1,7 @@
 import datetime
 import random
 import shelve
+import sys
 
 import telepot
 from telepot.loop import MessageLoop
@@ -105,7 +106,7 @@ if __name__ == "__main__":
     import time
     import telepot
 
-    BOT_TOKEN = "595325421:AAFCfc5pOjpAc7I_eFd-UVCG0M_6FY6VMXQ"
+    BOT_TOKEN = sys.argv[0]
 
     tg_bot = 0
 
