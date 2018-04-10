@@ -1,6 +1,5 @@
 import random
 import shelve
-import sys
 
 import telepot
 from telepot.loop import MessageLoop
@@ -53,7 +52,8 @@ if __name__ == "__main__":
     import time
     import telepot
 
-    BOT_TOKEN = sys.argv[0]
+    BOT_TOKEN = TOKEN  # sys.argv[1]
+    print("---------------------------" + BOT_TOKEN)
 
     tg_bot = 0
 
@@ -100,7 +100,7 @@ if __name__ == "__main__":
         tg_bot.sendMessage(chat_id, "[ECHO] {text}".format(text=" ".join(params)))
 
 
-    def cmd_start(chat_id):
+    def cmd_start(chat_id, params):
         msg = "/add_task \n /get_task \n /delete_task \n /display_all_tasks \n /task_done"
         tg_bot.sendMessage(chat_id, msg)
 
@@ -110,7 +110,7 @@ if __name__ == "__main__":
         add_task(params[0])
 
 
-    def cmd_get_task(chat_id):
+    def cmd_get_task(chat_id, params):
         tg_bot.sendMessage(chat_id, get_task())
 
 
@@ -119,7 +119,7 @@ if __name__ == "__main__":
         tg_bot.sendMessage(chat_id, "Task " + params[0] + " was removed.")
 
 
-    def cmd_display_all_tasks(chat_id):
+    def cmd_display_all_tasks(chat_id, params):
         tg_bot.sendMessage(chat_id, get_task_list())
 
 
