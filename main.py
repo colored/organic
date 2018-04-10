@@ -1,4 +1,3 @@
-import datetime
 import random
 import shelve
 import sys
@@ -12,14 +11,11 @@ SHELVE_NAME = "tasks"
 TOKEN = '595325421:AAFCfc5pOjpAc7I_eFd-UVCG0M_6FY6VMXQ'
 bot = telepot.Bot(TOKEN)
 
+
 def add_task(task):
     with shelve.open(SHELVE_NAME) as storage:
         name = task
-        times = receive_message('times: ')
-        per_day = receive_message('per_day: ')
-        from_time = receive_message('from time: ')
-        till_time = receive_message('till time: ')
-        storage[task] = Task(name, times, per_day, from_time_hrs=from_time, till_time_hrs=till_time)
+        storage[task] = Task(name)
 
 
 def get_task_list():
@@ -27,14 +23,9 @@ def get_task_list():
         return [str(task) + ': ' + str(storage[task].wage) for task in storage.keys()]
 
 
-def to_datetime_format(time):
-    return datetime.datetime.now().replace(hour=time, minute=0, second=0, microsecond=0)
-
-
 def get_prepared_task_list():
     with shelve.open(SHELVE_NAME) as storage:
         task_list = []
-        current_time = datetime.datetime.now()
         for task in storage.keys():
             for _ in range(storage[task].wage):
                 task_list.append(task)
@@ -57,52 +48,8 @@ def task_done(task):
         delete_task(task)
         storage[task] = temp_task
 
-def convert():
-    with shelve.open(SHELVE_NAME) as storage:
-        for task in storage.keys():
-            temp_task = storage[task]
-            temp_task.from_time = 1
-            temp_task.till_time = 23
-            delete_task(task)
-            storage[task] = temp_task
-
-
-def display(text):
-    bot.sendMessage(999999999, text)
-
-
-def receive_message(param):
-    pass
-
 
 if __name__ == "__main__":
-    # while True:
-    #     display("1: Add task")
-    #     display("2: Get task")
-    #     display("3: Delete task")
-    #     display("4: Display all tasks")
-    #     inp = int(receive_message("Your choice:"))
-    #     if inp == 1:
-    #         task = receive_message("Task name: ")
-    #         add_task(task)
-    #     elif inp == 2:
-    #         task = get_task()
-    #         print(task)
-    #         answer = receive_message("Is it done? y/n: ")
-    #         if answer == "y" or answer == "yes":
-    #             task_done(task)
-    #             print("Task is done!!!")
-    #         else:
-    #             print("Next time")
-    #     elif inp == 3:
-    #         delete_task(receive_message("delete task: "))
-    #     elif inp == 4:
-    #         print(get_task_list())
-    #
-    #     else:
-    #         print("Unknown command")
-
-
     import time
     import telepot
 
@@ -153,7 +100,7 @@ if __name__ == "__main__":
         tg_bot.sendMessage(chat_id, "[ECHO] {text}".format(text=" ".join(params)))
 
 
-    def cmd_start(chat_id, params):
+    def cmd_start(chat_id):
         msg = "/add_task \n /get_task \n /delete_task \n /display_all_tasks \n /task_done"
         tg_bot.sendMessage(chat_id, msg)
 
@@ -163,7 +110,7 @@ if __name__ == "__main__":
         add_task(params[0])
 
 
-    def cmd_get_task(chat_id, params):
+    def cmd_get_task(chat_id):
         tg_bot.sendMessage(chat_id, get_task())
 
 
@@ -172,7 +119,7 @@ if __name__ == "__main__":
         tg_bot.sendMessage(chat_id, "Task " + params[0] + " was removed.")
 
 
-    def cmd_display_all_tasks(chat_id, params):
+    def cmd_display_all_tasks(chat_id):
         tg_bot.sendMessage(chat_id, get_task_list())
 
 
