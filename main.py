@@ -2,7 +2,7 @@ import sys
 
 from telepot.loop import MessageLoop
 
-from Engine import add_task, get_task_list, get_task, delete_task, task_done
+from Engine import *
 
 SHELVE_NAME = "tasks"
 
@@ -13,7 +13,6 @@ if __name__ == "__main__":
     BOT_TOKEN = sys.argv[1]
 
     tg_bot = 0
-
     tg_commands = {}
 
 
