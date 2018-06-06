@@ -1,9 +1,11 @@
+import logging
 import random
 import shelve
 
 from Task import Task
 from main import SHELVE_NAME
 
+logging.basicConfig(filename='organic.log', level=logging.INFO)
 
 def add_task(task):
     with shelve.open(SHELVE_NAME) as storage:
@@ -41,3 +43,4 @@ def task_done(task):
         temp_task = storage[task].complete()
         delete_task(task)
         storage[task] = temp_task
+        logging.info("Done: " + task)
