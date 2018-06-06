@@ -21,13 +21,14 @@ def get_prepared_task_list():
         task_list = []
         for task in storage.keys():
             for _ in range(storage[task].wage):
-                task_list.append(task)
+                task_list.append(storage[task])
     return task_list
 
 
 def get_task():
     task_list = get_prepared_task_list()
-    return random.choice(task_list)
+    task = random.choice(task_list)
+    return task.name + " : " + str(task.time) + " min"
 
 
 def delete_task(task):
