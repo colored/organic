@@ -44,3 +44,8 @@ def task_done(task):
         delete_task(task)
         storage[task] = temp_task
         logging.info("Done: " + task)
+
+
+def save_magnet_link(link):
+    with open("/home/zu/torrents/magnet.magnet", "w") as fh:
+        fh.write(link)

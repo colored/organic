@@ -1,6 +1,7 @@
 import sys
 
 from telepot.loop import MessageLoop
+from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
 
 from Engine import *
 
@@ -53,7 +54,8 @@ if __name__ == "__main__":
 
 
     def cmd_echo(chat_id, params):
-        tg_bot.sendMessage(chat_id, "[ECHO] {text}".format(text=" ".join(params)))
+        keyboard = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text=" ".join(params))]])
+        tg_bot.sendMessage(chat_id, 'keyboardtest', reply_markup=keyboard)
 
 
     def cmd_start(chat_id, params):
@@ -84,6 +86,10 @@ if __name__ == "__main__":
         tg_bot.sendMessage(chat_id, "Task " + params[0] + " is done.")
 
 
+    def cmd_magnet(chat_id, params):
+        save_magnet_link(params[0])
+
+
     def main():
         global tg_bot
         tg_bot = telepot.Bot(BOT_TOKEN)
@@ -94,6 +100,7 @@ if __name__ == "__main__":
         add_command("/delete_task", cmd_delete_task)
         add_command("/display_all_tasks", cmd_display_all_tasks)
         add_command("/task_done", cmd_task_done)
+        add_command("/magnet", cmd_magnet)
         MessageLoop(tg_bot, on_message).run_as_thread()
         print("Listening messages")
 
