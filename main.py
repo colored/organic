@@ -88,6 +88,7 @@ if __name__ == "__main__":
 
     def cmd_magnet(chat_id, params):
         save_magnet_link(params[0])
+        tg_bot.sendMessage(chat_id, "Magnet added")
 
 
     def main():
