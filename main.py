@@ -1,3 +1,5 @@
+import sys
+
 from telepot.loop import MessageLoop
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
 
