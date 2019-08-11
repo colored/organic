@@ -5,7 +5,8 @@ import shelve
 from Task import Task
 from main import SHELVE_NAME
 
-logging.basicConfig(filename='organic.log', level=logging.INFO)
+
+# logging.basicConfig(filename='organic.log', level=logging.INFO)
 
 def add_task(task):
     with shelve.open(SHELVE_NAME) as storage:
@@ -49,3 +50,7 @@ def task_done(task):
 def save_magnet_link(link):
     with open("/home/zu/torrents/magnet.magnet", "w") as fh:
         fh.write(link)
+
+
+def get_sport():
+    return random.choice(('capoeira', 'gym', 'bike'))
