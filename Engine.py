@@ -53,4 +53,4 @@ def save_magnet_link(link):
 
 
 def get_sport():
-    return random.choice(('capoeira', 'gym', 'bike'))
+    return random.choice(('capoeira', 'capoeira', 'capoeira', 'gym', 'gym', 'bike'))
