@@ -95,6 +95,15 @@ if __name__ == "__main__":
         tg_bot.sendMessage(chat_id, get_sport())
 
 
+    def cmd_addwork(chat_id, params):
+        add_work(priority=params[0], title=params[1])
+        tg_bot.sendMessage(chat_id, "work task " + params[1] + " added with priority " + params[0])
+
+
+    def cmd_getwork(chat_id, params):
+        tg_bot.sendMessage(chat_id, get_work())
+
+
     def main():
         global tg_bot
         tg_bot = telepot.Bot(BOT_TOKEN)
@@ -107,6 +116,8 @@ if __name__ == "__main__":
         add_command("/task_done", cmd_task_done)
         add_command("/magnet", cmd_magnet)
         add_command("/getsport", cmd_getsport)
+        add_command("/addwork", cmd_addwork)
+        add_command("/getwork", cmd_getwork)
         MessageLoop(tg_bot, on_message).run_as_thread()
         print("Listening messages")
 
