@@ -7,6 +7,8 @@ from main import SHELVE_NAME
 
 
 # logging.basicConfig(filename='organic.log', level=logging.INFO)
+WORK_TASKS_SHELVE_NAME = "work_tasks"
+
 
 def add_task(task):
     with shelve.open(SHELVE_NAME) as storage:
@@ -19,8 +21,8 @@ def get_task_list():
         return [str(task) + ': ' + str(storage[task].wage) for task in storage.keys()]
 
 
-def get_prepared_task_list():
-    with shelve.open(SHELVE_NAME) as storage:
+def get_prepared_task_list(shelve_name):
+    with shelve.open(shelve_name) as storage:
         task_list = []
         for task in storage.keys():
             for _ in range(storage[task].wage):
@@ -29,7 +31,7 @@ def get_prepared_task_list():
 
 
 def get_task():
-    task_list = get_prepared_task_list()
+    task_list = get_prepared_task_list(SHELVE_NAME)
     task = random.choice(task_list)
     return task.name + " : " + str(task.time) + " min"
 
@@ -53,4 +55,14 @@ def save_magnet_link(link):
 
 
 def get_sport():
-    return random.choice(('capoeira', 'capoeira', 'capoeira', 'gym', 'gym', 'bike'))
+    return random.choice(('capoeira','capoeira','capoeira', 'gym', 'gym', 'bike'))
+
+def add_work(priority=0, title='dummy_work'):
+    with shelve.open(WORK_TASKS_SHELVE_NAME) as work_storage:
+        wage = 4 - int(priority)
+        work_storage[title] = Task(title, wage)
+
+def get_work():
+    task_list = get_prepared_task_list(WORK_TASKS_SHELVE_NAME)
+    task = random.choice(task_list)
+    return task.name
