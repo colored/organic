@@ -11,7 +11,7 @@ if __name__ == "__main__":
     import time
     import telepot
 
-    BOT_TOKEN = '595325421:AAFCfc5pOjpAc7I_eFd-UVCG0M_6FY6VMXQ'#sys.argv[1]
+    BOT_TOKEN = sys.argv[1]
 
     tg_bot = 0
     tg_commands = {}
