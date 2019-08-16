@@ -36,15 +36,15 @@ def get_task():
     return task.name + " : " + str(task.time) + " min"
 
 
-def delete_task(task):
-    with shelve.open(SHELVE_NAME) as storage:
+def delete_task(shelve_name, task):
+    with shelve.open(shelve_name) as storage:
         del storage[task]
 
 
 def task_done(task):
     with shelve.open(SHELVE_NAME) as storage:
         temp_task = storage[task].complete()
-        delete_task(task)
+        delete_task(SHELVE_NAME, task)
         storage[task] = temp_task
         logging.info("Done: " + task)
 
@@ -66,3 +66,7 @@ def get_work():
     task_list = get_prepared_task_list(WORK_TASKS_SHELVE_NAME)
     task = random.choice(task_list)
     return task.name
+
+def delete_work(work):
+    with shelve.open(WORK_TASKS_SHELVE_NAME) as work_storage:
+        delete_task(WORK_TASKS_SHELVE_NAME, work)
