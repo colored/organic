@@ -11,7 +11,7 @@ if __name__ == "__main__":
     import time
     import telepot
 
-    BOT_TOKEN = sys.argv[1]
+    BOT_TOKEN = '595325421:AAFCfc5pOjpAc7I_eFd-UVCG0M_6FY6VMXQ'#sys.argv[1]
 
     tg_bot = 0
     tg_commands = {}
@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
 
     def cmd_delete_task(chat_id, params):
-        delete_task(params[0])
+        delete_task(SHELVE_NAME, params[0])
         tg_bot.sendMessage(chat_id, "Task " + params[0] + " was removed.")
 
 
@@ -104,6 +104,10 @@ if __name__ == "__main__":
         tg_bot.sendMessage(chat_id, get_work())
 
 
+    def cmd_delete_work(chat_id, params):
+        tg_bot.sendMessage(chat_id, get_task())
+
+
     def main():
         global tg_bot
         tg_bot = telepot.Bot(BOT_TOKEN)
@@ -118,6 +122,7 @@ if __name__ == "__main__":
         add_command("/getsport", cmd_getsport)
         add_command("/addwork", cmd_addwork)
         add_command("/getwork", cmd_getwork)
+        add_command("/deletework", cmd_delete_work)
         MessageLoop(tg_bot, on_message).run_as_thread()
         print("Listening messages")
 
