@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
 
     def cmd_delete_work(chat_id, params):
-        tg_bot.sendMessage(chat_id, get_task())
+        tg_bot.sendMessage(chat_id, delete_work(params[0]))
 
 
     def main():
