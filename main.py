@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     def cmd_delete_task(chat_id, params):
         delete_task(SHELVE_NAME, params[0])
-        tg_bot.sendMessage(chat_id, "Task " + params[0] + " was removed.")
+        tg_bot.sendMessage(chat_id, "Task " + params[0] + " was deleted.")
 
 
     def cmd_display_all_tasks(chat_id, params):
@@ -105,7 +105,8 @@ if __name__ == "__main__":
 
 
     def cmd_delete_work(chat_id, params):
-        tg_bot.sendMessage(chat_id, delete_work(params[0]))
+        delete_work(params[0])
+        tg_bot.sendMessage(chat_id, 'Task ' + params[0] + ' was deleted')
 
 
     def main():
