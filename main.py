@@ -108,6 +108,9 @@ if __name__ == "__main__":
         delete_work(params[0])
         tg_bot.sendMessage(chat_id, 'Task ' + params[0] + ' was deleted')
 
+    def cmd_work_stats(chat_id, params):
+        tg_bot.sendMessage(chat_id, get_work_stats())
+
 
     def main():
         global tg_bot
@@ -124,6 +127,7 @@ if __name__ == "__main__":
         add_command("/addwork", cmd_addwork)
         add_command("/getwork", cmd_getwork)
         add_command("/deletework", cmd_delete_work)
+        add_command("/workstats", cmd_work_stats)
         MessageLoop(tg_bot, on_message).run_as_thread()
         print("Listening messages")
 

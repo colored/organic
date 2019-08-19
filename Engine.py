@@ -2,11 +2,13 @@ import logging
 import random
 import shelve
 
+from datetime import datetime
 from Task import Task
 from main import SHELVE_NAME
 
 # logging.basicConfig(filename='organic.log', level=logging.INFO)
 WORK_TASKS_SHELVE_NAME = "work_tasks"
+COMPLETED_WORK_SHELVE_NAME = "completed_work"
 
 
 def add_task(task):
@@ -65,9 +67,30 @@ def add_work(priority=0, title='dummy_work'):
 
 def get_work():
     task_list = get_prepared_task_list(WORK_TASKS_SHELVE_NAME)
+    if len(task_list) == 0:
+        return "There is nothing"
     task = random.choice(task_list)
     return task.name
 
 
 def delete_work(work):
     delete_task(WORK_TASKS_SHELVE_NAME, work)
+    today = get_todays_date()
+    with shelve.open(COMPLETED_WORK_SHELVE_NAME) as completed_log:
+        if not today in completed_log.keys():
+            completed_log[today] = 1
+        else:
+            completed_log[today] += 1
+
+
+def get_work_stats():
+    with shelve.open(COMPLETED_WORK_SHELVE_NAME) as completed_log:
+        today = get_todays_date()
+        if today in completed_log.keys():
+            return completed_log[today]
+        return 0
+
+
+def get_todays_date():
+    today = datetime.today().strftime('%Y-%m-%d')
+    return today
