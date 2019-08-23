@@ -61,7 +61,7 @@ def get_sport():
 
 def add_work(priority=0, title='dummy_work'):
     with shelve.open(WORK_TASKS_SHELVE_NAME) as work_storage:
-        wage = 4 - int(priority)
+        wage = 5 - int(priority)
         work_storage[title] = Task(title, wage)
 
 
@@ -86,8 +86,12 @@ def delete_work(work):
 def get_work_stats():
     with shelve.open(COMPLETED_WORK_SHELVE_NAME) as completed_log:
         today = get_todays_date()
+        sum = 0
+        for date in completed_log.keys():
+           sum += completed_log[date]
+        average = sum / len(completed_log.keys())
         if today in completed_log.keys():
-            return completed_log[today]
+            return 'Today: ' + str(completed_log[today]) + ', Average: ' + str(average)
         return 0
 
 
