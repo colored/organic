@@ -17,8 +17,8 @@ def add_task(task):
         storage[task] = Task(name)
 
 
-def get_task_list():
-    with shelve.open(SHELVE_NAME) as storage:
+def get_task_list(shelve_name):
+    with shelve.open(shelve_name) as storage:
         return [str(task) + ': ' + str(storage[task].wage) for task in storage.keys()]
 
 
@@ -88,11 +88,16 @@ def get_work_stats():
         today = get_todays_date()
         sum = 0
         for date in completed_log.keys():
-           sum += completed_log[date]
+            sum += completed_log[date]
         average = sum / len(completed_log.keys())
-        if today in completed_log.keys():
-            return 'Today: ' + str(completed_log[today]) + ', Average: ' + str(average)
-        return 0
+        task_list = get_task_list(WORK_TASKS_SHELVE_NAME)
+
+        return 'Today: ' + str(completed_log[today]) + ', Average: ' + str(average) + '\n' + str(task_list)
+
+def get_works():
+    with shelve.open(WORK_TASKS_SHELVE_NAME) as storage:
+        return [str(task) + ': ' + str(storage[task].wage) for task in storage.keys()]
+
 
 
 def get_todays_date():

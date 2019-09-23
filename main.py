@@ -112,20 +112,25 @@ if __name__ == "__main__":
         tg_bot.sendMessage(chat_id, get_work_stats())
 
 
+    def cmd_getworks(chat_id, params):
+        tg_bot.sendMessage(chat_id, get_works())
+
+
     def main():
         global tg_bot
         tg_bot = telepot.Bot(BOT_TOKEN)
         add_command("/echo", cmd_echo)
         add_command("/start", cmd_start)
-        add_command("/add_task", cmd_add_task)
+        add_command("/addtask", cmd_add_task)
         add_command("/get_task", cmd_get_task)
-        add_command("/delete_task", cmd_delete_task)
-        add_command("/display_all_tasks", cmd_display_all_tasks)
-        add_command("/task_done", cmd_task_done)
+        add_command("/deletetask", cmd_delete_task)
+        add_command("/displaytasks", cmd_display_all_tasks)
+        add_command("/taskdone", cmd_task_done)
         add_command("/magnet", cmd_magnet)
         add_command("/getsport", cmd_getsport)
         add_command("/addwork", cmd_addwork)
         add_command("/getwork", cmd_getwork)
+        add_command("/getworks", cmd_getworks)
         add_command("/deletework", cmd_delete_work)
         add_command("/workstats", cmd_work_stats)
         MessageLoop(tg_bot, on_message).run_as_thread()
