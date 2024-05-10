@@ -2,10 +2,8 @@ import sys
 
 from telepot.loop import MessageLoop
 from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton
-
-from Engine import *
-
 SHELVE_NAME = "tasks"
+from Engine import *
 
 if __name__ == "__main__":
     import time

@@ -4,7 +4,7 @@ import shelve
 
 from datetime import datetime
 from Task import Task
-from main import SHELVE_NAME
+from constants import SHELVE_NAME
 
 # logging.basicConfig(filename='organic.log', level=logging.INFO)
 WORK_TASKS_SHELVE_NAME = "work_tasks"
@@ -56,8 +56,12 @@ def save_magnet_link(link):
 
 
 def get_sport():
-    return random.choice(('capoeira', 'capoeira', 'capoeira', 'gym', 'gym', 'bike'))
-
+    activity = random.choice(('capoeira', 'gym', 'cardio'))
+    available_sups = ('protein', 'alpha-gpc', 'l-tyrosine', 'gel', 'taurine')
+    available_sups = available_sups + tuple([None for sup in available_sups])
+    sups = random.sample(available_sups, k=len(available_sups)//2)
+    sups = [sup for sup in sups if sup is not None]
+    return activity + ' with ' + ' and '.join(sups)
 
 def add_work(priority=0, title='dummy_work'):
     with shelve.open(WORK_TASKS_SHELVE_NAME) as work_storage:
